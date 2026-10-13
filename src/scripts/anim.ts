@@ -71,16 +71,38 @@ if (reduce) {
 		});
 	}
 
-	document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
-		const id = a.getAttribute('href');
-		if (!id || id === '#' || id === '#contenido') return;
-		a.addEventListener('click', (e) => {
-			const target = document.querySelector<HTMLElement>(id);
-			if (!target) return;
-			e.preventDefault();
-			lenis.scrollTo(target, { offset: -96 });
+	const scrollToTarget = (target: HTMLElement, immediate = false) => {
+		lenis.scrollTo(target, { offset: -96, immediate });
+	};
+
+	document
+		.querySelectorAll<HTMLAnchorElement>('a[href^="#"], a[href^="/#"]')
+		.forEach((a) => {
+			const href = a.getAttribute('href');
+			if (!href) return;
+			const hash = href.startsWith('/#') ? href.slice(1) : href;
+			if (!hash || hash === '#' || hash === '#contenido') return;
+			a.addEventListener('click', (e) => {
+				const target = document.querySelector<HTMLElement>(hash);
+				if (!target) return;
+				e.preventDefault();
+				scrollToTarget(target);
+				history.pushState(null, '', hash);
+			});
 		});
-	});
+
+	if (location.hash) {
+		let jumped = false;
+		const jump = () => {
+			if (jumped) return;
+			const target = document.querySelector<HTMLElement>(location.hash);
+			if (!target) return;
+			jumped = true;
+			scrollToTarget(target, true);
+		};
+		requestAnimationFrame(jump);
+		window.addEventListener('load', jump);
+	}
 }
 
 export {};

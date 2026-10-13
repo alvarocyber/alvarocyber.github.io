@@ -36,15 +36,15 @@ export const es = {
 
 	brand: {
 		text: 'alvaro.garcia',
-		home: '#inicio',
+		home: '/#inicio',
 	},
 
 	nav: [
-		{ label: 'Inicio', href: '#inicio' },
-		{ label: 'Sobre mí', href: '#sobre-mi' },
-		{ label: 'Áreas técnicas', href: '#areas' },
-		{ label: 'Proyectos', href: '#proyectos' },
-		{ label: 'Contacto', href: '#contacto' },
+		{ label: 'Inicio', href: '/#inicio' },
+		{ label: 'Sobre mí', href: '/#sobre-mi' },
+		{ label: 'Áreas técnicas', href: '/#areas' },
+		{ label: 'Proyectos', href: '/#proyectos' },
+		{ label: 'Contacto', href: '/#contacto' },
 	],
 
 	hero: {
@@ -57,8 +57,8 @@ export const es = {
 			'Especial interés en inteligencia artificial y agentes autónomos.',
 			'Desarrollo de proyectos propios y aprendizaje continuo.',
 		],
-		primaryCta: { label: 'Explorar proyectos', href: '#proyectos' },
-		secondaryCta: { label: 'Conocer mi perfil', href: '#sobre-mi' },
+		primaryCta: { label: 'Explorar proyectos', href: '/#proyectos' },
+		secondaryCta: { label: 'Conocer mi perfil', href: '/#sobre-mi' },
 	},
 
 	// socials: enlaces reales pendientes de confirmar por el autor.

@@ -1,7 +1,7 @@
 ---
 import { copy } from '../i18n';
 const links = copy.nav;
-const contact = copy.nav.find((l) => l.href === '#contacto');
+const contact = copy.nav.find((l) => l.href.endsWith('#contacto'));
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 px-4">
@@ -33,7 +33,7 @@ const contact = copy.nav.find((l) => l.href === '#contacto');
 		</ul>
 
 		<a
-			href={contact?.href ?? '#contacto'}
+			href={contact?.href ?? '/#contacto'}
 			class="hidden rounded-full bg-accent px-3 py-2 text-sm font-semibold text-ground transition-transform duration-700 ease-fluid hover:-translate-y-0.5 md:block"
 		>
 			Hablemos
@@ -124,7 +124,7 @@ const contact = copy.nav.find((l) => l.href === '#contacto');
 	const navLinks = [...document.querySelectorAll<HTMLElement>('[data-nav-link]')];
 	onActiveSection((id) => {
 		navLinks.forEach((l) => {
-			const active = l.getAttribute('href') === `#${id}`;
+			const active = l.getAttribute('href')?.endsWith(`#${id}`) ?? false;
 			l.classList.toggle('text-ink', active);
 			l.classList.toggle('bg-white/5', active);
 			l.classList.toggle('text-muted', !active);
