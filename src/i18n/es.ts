@@ -202,6 +202,7 @@ export const es = {
 					},
 				],
 				repo: 'https://github.com/alvarocyber/python-from-cero',
+				image: { src: '/python-from-cero.svg', alt: 'Composición con el logotipo de Python.' },
 			},
 			{
 				slug: 'fullstack-from-cero',
@@ -221,6 +222,10 @@ export const es = {
 					},
 				],
 				repo: 'https://github.com/alvarocyber/fullstack_from_zero',
+				image: {
+					src: '/fullstack-from-cero.svg',
+					alt: 'Composición con los logotipos del stack: HTML, CSS, JavaScript, TypeScript, React, Node.js, SQL y Docker.',
+				},
 			},
 		] as Project[],
 		pendingNote: 'Proyectos en preparación. Esta sección se completará con repositorios reales verificados.',
