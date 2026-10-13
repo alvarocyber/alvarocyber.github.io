@@ -115,7 +115,7 @@ export const es = {
 				title: 'Programación e ingeniería del software',
 				items: [
 					{ name: 'Python', level: 'uso' },
-					{ name: 'JavaScript', level: 'uso' },
+					{ name: 'Java', level: 'uso' },
 					{ name: 'Algoritmia y estructuras de datos', level: 'aprendiendo' },
 					{ name: 'Diseño e implementación de aplicaciones', level: 'uso' },
 					{ name: 'Arquitectura y organización del software', level: 'aprendiendo' },
