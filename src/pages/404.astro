@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página no encontrada · Portfolio">
+	<section class="mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-4 py-32">
+		<span class="font-mono text-sm font-semibold text-accent">Error 404</span>
+		<h1 class="mt-6 max-w-[680px] font-display text-4xl font-semibold tracking-tight md:text-6xl">
+			Esta ruta no existe.
+		</h1>
+		<p class="mt-6 max-w-[680px] text-lg text-muted">
+			Puede que el enlace haya cambiado o que la página todavía no esté construida.
+		</p>
+		<div class="mt-10">
+			<a href="/" class="btn-primary">
+				Volver al inicio
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+					<path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</a>
+		</div>
+	</section>
+</Layout>

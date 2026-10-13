@@ -1,0 +1,64 @@
+---
+import { copy } from '../i18n';
+const words = copy.tagline.words;
+---
+
+<section class="border-y border-white/5 px-4 py-32 md:py-40">
+	<p class="mx-auto max-w-4xl font-display text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+		{
+			words.map((word) => (
+				<span data-word class="inline-block">{word}&nbsp;</span>
+			))
+		}
+	</p>
+</section>
+
+<style>
+	[data-word] {
+		opacity: 0.3;
+		transition: opacity 700ms cubic-bezier(0.32, 0.72, 0, 1);
+	}
+
+	[data-word].is-on {
+		opacity: 1;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		[data-word] {
+			opacity: 1;
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	const words = [...document.querySelectorAll<HTMLElement>('[data-word]')];
+	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (reduce) {
+		words.forEach((w) => w.classList.add('is-on'));
+	} else {
+		let ticking = false;
+
+		function update() {
+			const line = window.innerHeight * 0.7;
+			words.forEach((w) => {
+				const rect = w.getBoundingClientRect();
+				const on = rect.top < line && rect.bottom > line * 0.2;
+				w.classList.toggle('is-on', on);
+			});
+			ticking = false;
+		}
+
+		function onScroll() {
+			if (!ticking) {
+				requestAnimationFrame(update);
+				ticking = true;
+			}
+		}
+
+		update();
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', onScroll, { passive: true });
+	}
+</script>

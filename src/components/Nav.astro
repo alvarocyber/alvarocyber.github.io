@@ -1,0 +1,133 @@
+---
+import { copy } from '../i18n';
+const links = copy.nav;
+const contact = copy.nav.find((l) => l.href === '#contacto');
+---
+
+<header class="fixed inset-x-0 top-0 z-50 px-4">
+	<nav
+		class="mx-auto mt-6 flex w-max max-w-[calc(100vw-2rem)] items-center gap-1 rounded-full border border-white/10 bg-surface/70 p-1 pl-4 backdrop-blur-xl"
+		aria-label="Navegación principal"
+	>
+		<a href={copy.brand.home} class="mr-1 flex items-center gap-2 font-display text-sm font-semibold tracking-tight text-ink">
+			<svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true" class="shrink-0">
+				<path d="M6.5 25.5 L16 7 L25.5 25.5" fill="none" stroke="#d97745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+			{copy.brand.text}<span class="text-accent">.</span>
+		</a>
+
+		<ul class="hidden items-center gap-1 md:flex">
+			{
+				links.map((link) => (
+					<li>
+						<a
+							href={link.href}
+							data-nav-link
+							class="block rounded-full px-3 py-2 text-sm font-semibold text-muted transition-colors duration-700 ease-fluid hover:text-ink"
+						>
+							{link.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<a
+			href={contact?.href ?? '#contacto'}
+			class="hidden rounded-full bg-accent px-3 py-2 text-sm font-semibold text-ground transition-transform duration-700 ease-fluid hover:-translate-y-0.5 md:block"
+		>
+			Hablemos
+		</a>
+
+		<button
+			type="button"
+			id="nav-toggle"
+			class="relative flex h-10 w-10 items-center justify-center rounded-full text-ink md:hidden"
+			aria-expanded="false"
+			aria-controls="mobile-menu"
+			aria-label="Abrir menú"
+		>
+			<span data-bar class="absolute h-0.5 w-5 -translate-y-1.5 rounded-full bg-ink transition-transform duration-700 ease-fluid"></span>
+			<span data-bar class="absolute h-0.5 w-5 translate-y-1.5 rounded-full bg-ink transition-transform duration-700 ease-fluid"></span>
+		</button>
+	</nav>
+</header>
+
+<div
+	id="mobile-menu"
+	class="pointer-events-none fixed inset-0 z-40 flex flex-col justify-center gap-2 bg-black/80 px-8 opacity-0 backdrop-blur-3xl transition-opacity duration-700 ease-fluid md:hidden"
+	aria-hidden="true"
+>
+	<ul class="flex flex-col gap-2">
+		{
+			links.map((link, i) => (
+				<li
+					data-menu-item
+					class="translate-y-12 opacity-0 transition-all duration-700 ease-fluid"
+					style={`transition-delay:${100 + i * 50}ms`}
+				>
+					<a
+						href={link.href}
+						class="block font-display text-4xl font-semibold text-ink"
+					>
+						{link.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</div>
+
+<script>
+	import { initScrollState, onActiveSection } from '../scripts/scroll-state';
+
+	const toggle = document.getElementById('nav-toggle');
+	const menu = document.getElementById('mobile-menu');
+	const bars = toggle?.querySelectorAll<HTMLElement>('[data-bar]');
+	const items = menu?.querySelectorAll<HTMLElement>('[data-menu-item]');
+
+	function setOpen(open: boolean) {
+		if (!toggle || !menu) return;
+		toggle.setAttribute('aria-expanded', String(open));
+		toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+		menu.setAttribute('aria-hidden', String(!open));
+		menu.classList.toggle('opacity-0', !open);
+		menu.classList.toggle('pointer-events-none', !open);
+
+		if (bars && bars[0] && bars[1]) {
+			bars[0].classList.toggle('-translate-y-1.5', !open);
+			bars[0].classList.toggle('rotate-45', open);
+			bars[1].classList.toggle('translate-y-1.5', !open);
+			bars[1].classList.toggle('-rotate-45', open);
+		}
+
+		items?.forEach((item, i) => {
+			const delay = open ? 100 + i * 50 : 0;
+			window.setTimeout(() => {
+				item.classList.toggle('translate-y-12', !open);
+				item.classList.toggle('opacity-0', !open);
+			}, delay);
+		});
+	}
+
+	toggle?.addEventListener('click', () => {
+		setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+	});
+
+	menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') setOpen(false);
+	});
+
+	initScrollState();
+	const navLinks = [...document.querySelectorAll<HTMLElement>('[data-nav-link]')];
+	onActiveSection((id) => {
+		navLinks.forEach((l) => {
+			const active = l.getAttribute('href') === `#${id}`;
+			l.classList.toggle('text-ink', active);
+			l.classList.toggle('bg-white/5', active);
+			l.classList.toggle('text-muted', !active);
+		});
+	});
+</script>

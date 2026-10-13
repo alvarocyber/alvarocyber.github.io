@@ -1,0 +1,57 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { copy } from '../i18n';
+const { education } = copy;
+const isPending = (href: string) => href.startsWith('[');
+---
+
+<section id="formacion" class="px-4 py-24 md:py-32">
+	<div class="mx-auto max-w-6xl">
+		<SectionHeading number={education.number} title={education.title} intro={education.intro} />
+
+		<div class="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
+			<article data-reveal class="rounded-2xl border border-white/10 bg-surface p-6 md:p-8">
+				<span class="font-mono text-xs font-semibold uppercase tracking-widest text-accent">Formación actual</span>
+				<h3 class="mt-4 font-display text-xl font-semibold text-ink md:text-2xl">
+					{education.current.title}
+				</h3>
+				<p class="mt-4 text-base text-muted">{education.current.detail}</p>
+			</article>
+
+			<ol class="relative flex flex-col gap-10 border-l border-white/10 pl-8">
+				{
+					education.timeline.map((item, i) => (
+						<li data-reveal class="relative" style={`transition-delay:${i * 100}ms`}>
+							<span class="absolute -left-[2.05rem] top-1.5 h-2.5 w-2.5 rounded-full border border-accent/50 bg-ground">
+								<span class="absolute inset-0 m-auto h-1 w-1 rounded-full bg-accent"></span>
+							</span>
+							<span class="font-mono text-xs font-semibold uppercase tracking-widest text-muted">
+								{item.period}
+							</span>
+							<h3 class="mt-2 font-display text-lg font-semibold text-ink">{item.title}</h3>
+							<p class="mt-1 text-sm text-muted">{item.text}</p>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+
+		{
+			education.extra.length > 0 && (
+				<ul data-reveal class="mt-12 flex flex-wrap gap-4">
+					{education.extra.map((item) => (
+						<li>
+							{isPending(item.href) ? (
+								<span class="text-sm text-muted/60">{item.label} · pendiente</span>
+							) : (
+								<a href={item.href} class="text-sm font-semibold text-accent">
+									{item.label}
+								</a>
+							)}
+						</li>
+					))}
+				</ul>
+			)
+		}
+	</div>
+</section>

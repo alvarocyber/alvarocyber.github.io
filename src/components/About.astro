@@ -1,0 +1,68 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { copy } from '../i18n';
+const { about } = copy;
+---
+
+<section id="sobre-mi" class="px-4 py-24 md:py-32">
+	<div class="mx-auto max-w-6xl">
+		<SectionHeading number={about.number} title={about.title} />
+
+		<div class="grid gap-16 lg:grid-cols-[1.2fr_0.8fr]">
+			<div>
+				<p data-reveal class="max-w-[680px] font-display text-2xl font-medium leading-8 text-ink md:text-3xl">
+					{about.lead}
+				</p>
+				<div class="mt-8 flex max-w-[680px] flex-col gap-4">
+					{
+						about.paragraphs.map((p) => (
+							<p data-reveal class="text-base leading-7 text-muted">
+								{p}
+							</p>
+						))
+					}
+				</div>
+			</div>
+
+			<div class="relative">
+				<svg
+					data-reveal
+					viewBox="0 0 300 300"
+					class="mb-8 h-auto w-full max-w-xs"
+					role="img"
+					aria-label="Estructura abstracta"
+				>
+					<g fill="none" stroke="#313131" stroke-width="1.5">
+						<path d="M20 280 H280" />
+						<path d="M20 200 H280" />
+						<path d="M20 120 H280" />
+						<path d="M60 20 V280" />
+						<path d="M150 20 V280" />
+						<path d="M240 20 V280" />
+						<path d="M60 200 L150 120 L240 200 L150 280 Z" />
+					</g>
+					<circle cx="150" cy="120" r="6" fill="#d97745" />
+					<circle cx="60" cy="200" r="5" fill="#f2f0ea" />
+					<circle cx="240" cy="200" r="5" fill="#f2f0ea" />
+					<circle cx="150" cy="280" r="5" fill="#a4a4a4" />
+				</svg>
+
+				<ul class="flex flex-col gap-6">
+					{
+						about.pillars.map((pillar, i) => (
+							<li data-reveal class="flex gap-4" style={`transition-delay:${i * 100}ms`}>
+								<span class="mt-0.5 font-mono text-xs font-semibold text-accent">
+									{String(i + 1).padStart(2, '0')}
+								</span>
+								<div>
+									<h3 class="font-display text-base font-semibold text-ink">{pillar.title}</h3>
+									<p class="mt-1 text-sm text-muted">{pillar.text}</p>
+								</div>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>

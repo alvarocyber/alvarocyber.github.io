@@ -1,11 +1,37 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import WorldBackdrop from '../components/WorldBackdrop.astro';
+import RouteRail from '../components/RouteRail.astro';
+import Hero from '../components/Hero.astro';
+import TaglineReveal from '../components/TaglineReveal.astro';
+import About from '../components/About.astro';
+import Areas from '../components/Areas.astro';
+import Projects from '../components/Projects.astro';
+import Process from '../components/Process.astro';
+import Education from '../components/Education.astro';
+import Contact from '../components/Contact.astro';
+import { copy } from '../i18n';
 ---
 
 <Layout>
-	<Welcome />
+	<WorldBackdrop />
+	<RouteRail />
+	<Hero />
+	<TaglineReveal />
+	<About />
+	<Areas />
+	<Projects />
+	<Process />
+	<Education />
+	<Contact />
+	<script>
+		import '../scripts/anim';
+	</script>
+	<script type="application/ld+json" set:html={JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Person',
+		name: 'Portfolio',
+		description: copy.meta.description,
+		knowsAbout: ['Inteligencia artificial', 'Agentes autónomos', 'Ingeniería del software', 'Desarrollo web'],
+	})} />
 </Layout>

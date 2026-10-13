@@ -1,0 +1,48 @@
+---
+import { copy } from '../i18n';
+const { contact, socials } = copy;
+const links = [socials.github, socials.linkedin, socials.email];
+const isPending = (href: string) => href.startsWith('[');
+const isEmail = (href: string) => href.startsWith('mailto:');
+---
+
+<section id="contacto" class="px-4 py-24 md:py-32">
+	<div class="mx-auto max-w-6xl">
+		<div class="rounded-2xl border border-white/10 bg-surface p-8 md:p-16">
+			<span class="font-mono text-sm font-semibold text-accent">{contact.number}</span>
+			<h2
+				data-reveal
+				class="mt-6 max-w-[680px] font-display text-3xl font-semibold tracking-tight md:text-5xl"
+			>
+				{contact.title}
+			</h2>
+			<p data-reveal class="mt-6 max-w-[680px] text-lg leading-7 text-muted">{contact.text}</p>
+
+			<ul data-reveal class="mt-10 flex flex-wrap gap-6">
+				{
+					links.map((link) => {
+						const href = link.href;
+						return (
+							<li>
+								{isPending(href) ? (
+									<span class="text-sm text-muted/60" title="Enlace pendiente de configurar">
+										{link.label} · pendiente de configurar
+									</span>
+								) : (
+									<a
+										href={href}
+										class="font-display text-lg font-semibold text-ink transition-colors duration-700 ease-fluid hover:text-accent"
+										target={isEmail(href) ? undefined : '_blank'}
+										rel={isEmail(href) ? undefined : 'noopener noreferrer'}
+									>
+										{link.label} ↗
+									</a>
+								)}
+							</li>
+						);
+					})
+				}
+			</ul>
+		</div>
+	</div>
+</section>

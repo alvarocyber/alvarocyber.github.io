@@ -1,46 +1,61 @@
-# Astro Starter Kit: Basics
+# Portfolio de Álvaro García
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Portfolio personal de **Álvaro García**, estudiante de Ingeniería Informática en la ESI-UCLM. Recoge mi perfil, mis áreas técnicas, mis proyectos y mi forma de trabajar, con un recorrido narrativo por scroll.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Sitio:** https://alvarocyber.github.io
+- **Autor:** Álvaro García — [GitHub](https://github.com/alvarocyber) · [LinkedIn](https://www.linkedin.com/in/alvarogarciacamara/) · [Correo](mailto:alvaro.garcia69@alu.uclm.es)
 
-## 🚀 Project Structure
+## Tecnologías
 
-Inside of your Astro project, you'll see the following folders and files:
+- **[Astro](https://astro.build)** — generación de sitio estático.
+- **[Tailwind CSS v4](https://tailwindcss.com)** — utilidades y tokens de diseño.
+- **[GSAP](https://gsap.com) + ScrollTrigger** — animaciones ligadas al scroll.
+- **[Lenis](https://lenis.darkroom.engineering)** — scroll suave.
+- **[Fontsource](https://fontsource.org)** — tipografías Space Grotesk y Manrope.
+- **sharp** — optimización de imágenes.
+
+Sin frameworks de UI, sin vídeo y sin servicios externos: todo el contenido y los recursos se sirven de forma estática.
+
+## Estructura
 
 ```text
 /
-├── public/
-│   └── favicon.svg
+├── public/                 # Recursos estáticos (capturas, favicon, og)
 ├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+│   ├── components/         # Componentes de sección (Hero, About, Projects, ...)
+│   ├── data/stops.ts       # Fuente única de las paradas del recorrido
+│   ├── i18n/               # Contenido y textos del sitio
+│   ├── layouts/            # Layout base (SEO, metadatos, estructura)
+│   ├── pages/              # Rutas (index, 404, legal, privacidad)
+│   ├── scripts/            # Motor de scroll (GSAP, Lenis, estado activo)
+│   └── styles/global.css   # Tokens de diseño y estilos base
+└── .github/workflows/      # Despliegue a GitHub Pages
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Desarrollo
 
-## 🧞 Commands
+Requiere **Node.js ≥ 22** y **pnpm**.
 
-All commands are run from the root of the project, from a terminal:
+```sh
+pnpm install       # instala dependencias
+pnpm dev           # servidor de desarrollo en http://localhost:4321
+pnpm build         # genera el sitio estático en dist/
+pnpm preview       # previsualiza el build de producción
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## Contenido
 
-## 👀 Want to learn more?
+Todo el texto editable está centralizado en `src/i18n/es.ts` (perfil, áreas, proyectos, formación y contacto). La estructura del recorrido por scroll se define en `src/data/stops.ts`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Los proyectos se presentan como casos de estudio con datos verificados e imágenes reales. No se inventan métricas, tecnologías ni enlaces.
+
+## Accesibilidad y rendimiento
+
+- Contenido legible y navegable sin JavaScript (fallback `<noscript>`).
+- Soporte de `prefers-reduced-motion`: se eliminan las animaciones dependientes del scroll.
+- Navegación por anclas, foco visible y enlace "saltar al contenido".
+- Sitio estático, sin dependencias multimedia ni reproductores.
+
+## Despliegue
+
+El sitio se publica automáticamente en **GitHub Pages** con GitHub Actions (`.github/workflows/deploy.yml`) en cada push a `main`.
